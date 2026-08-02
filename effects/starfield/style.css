@@ -1,0 +1,13 @@
+/* starfield — 잔잔히 반짝이는 별하늘 배경 */
+
+.fx-starfield { position: relative; }
+
+.fx-starfield__cv {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 별은 뒤, 내용은 앞 — 배경류 팩의 공통 계약입니다. */
+.fx-starfield > *:not(.fx-starfield__cv) { position: relative; z-index: 1; }
