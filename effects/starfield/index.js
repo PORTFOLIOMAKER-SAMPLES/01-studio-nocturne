@@ -43,13 +43,32 @@ export const mount = defineEffect({
     }
 
     const cv = doc.createElement('canvas');
-    cv.className = 'fx-starfield__cv';
+    /*
+     * fx-layer — "이건 배경 레이어지 콘텐츠가 아니다"는 팩 공용 표식입니다.
+     * 배경 팩들은 저마다 `> *:not(자기 캔버스)`로 콘텐츠를 앞에 세우는데,
+     * 표식이 없으면 그 규칙이 **다른 팩의 캔버스까지 콘텐츠로 착각해** 붙잡아
+     * 흐름에 끼워 넣습니다(영역이 부풀고 배경이 내용을 밀어냅니다).
+     */
+    cv.className = 'fx-starfield__cv fx-layer';
     cv.setAttribute('aria-hidden', 'true');
     el.prepend(cv);
     addCleanup(() => cv.remove());
 
     const ctx = cv.getContext('2d');
-    const color = (opts.color || '').trim() || '#ffffff';
+    /*
+     * 색 결정 — 도트 웨이브와 같은 규칙입니다.
+     *   ① 사용자가 고른 색  ② 테마가 내려준 --fx-star-color  ③ 흰색
+     *
+     * 예전에는 ②가 없어 **밝은 테마에서 흰 별이 흰 배경에 묻혔습니다.**
+     * 효과를 켜도 아무 일이 없어 보였고, 색을 직접 고르기 전에는 그대로였습니다.
+     */
+    const resolveColor = () => {
+      const own = (opts.color || '').trim();
+      if (own) return own;
+      const v = getComputedStyle(el).getPropertyValue('--fx-star-color').trim();
+      return v || '#ffffff';
+    };
+    const color = resolveColor();
     let stars = [];
     let w = 0;
     let h = 0;

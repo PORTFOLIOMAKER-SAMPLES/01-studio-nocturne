@@ -9,5 +9,8 @@
   z-index: 0;
 }
 
-/* 별은 뒤, 내용은 앞 — 배경류 팩의 공통 계약입니다. */
-.fx-starfield > *:not(.fx-starfield__cv) { position: relative; z-index: 1; }
+/* 별은 뒤, 내용은 앞 — 배경류 팩의 공통 계약입니다.
+   `.fx-layer`(배경 레이어 공용 표식)는 건너뜁니다. 자기 캔버스만 빼면
+   같은 영역에 함께 걸린 **다른 팩의 배경까지 콘텐츠로 끌어올려** 흐름에
+   끼워 넣습니다 — 영역이 부풀고 두 배경이 서로를 망칩니다. */
+.fx-starfield > *:not(.fx-layer) { position: relative; z-index: 1; }
