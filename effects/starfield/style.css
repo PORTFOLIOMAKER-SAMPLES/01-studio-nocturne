@@ -13,4 +13,5 @@
    `.fx-layer`(배경 레이어 공용 표식)는 건너뜁니다. 자기 캔버스만 빼면
    같은 영역에 함께 걸린 **다른 팩의 배경까지 콘텐츠로 끌어올려** 흐름에
    끼워 넣습니다 — 영역이 부풀고 두 배경이 서로를 망칩니다. */
-.fx-starfield > *:not(.fx-layer) { position: relative; z-index: 1; }
+/* 편집 표시(wf__로 시작: 이름표 줄 · 손잡이 · 효과 표식)는 빼야 섹션 테두리에 붙어 있습니다(사용자 확인, 2026-11-13) */
+.fx-starfield > *:not(.fx-layer):not([class^="wf__"]) { position: relative; z-index: 1; }
