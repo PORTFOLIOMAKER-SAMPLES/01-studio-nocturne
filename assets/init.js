@@ -8,8 +8,8 @@
  * 효과를 빼고 싶으면 아래 한 줄을 지우고 HTML의 data-fx도 지우면 됩니다.
  */
 
-import { mount as model } from '../effects/model-showcase/index.js';
 import { mount as tilt } from '../effects/tilt-card/index.js';
+import { mount as model } from '../effects/model-showcase/index.js';
 
 /**
  * 영역 안쪽 요소에 붙는 효과(tilt/flip/magnetic/scramble)는 옵션을 부모에서 읽습니다.
@@ -33,11 +33,11 @@ function readOpts(el, prefix) {
 }
 
 function boot() {
-  model('.fx-model');
   document.querySelectorAll('[data-fx~="tilt"]').forEach((el) => {
     const targets = el.querySelectorAll('.wf-card, .wf-main__slot');
     if (targets.length) tilt([...targets], readOpts(el, 'tilt-card'));
   });
+  model('.fx-model');
 }
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
